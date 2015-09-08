@@ -1,4 +1,5 @@
 var assert = require("assert");
+var _      = require("lodash");
 
 var Transferencia = require("../src/transferencia");
 var Cuenta = require("../src/cuenta");
@@ -10,12 +11,12 @@ describe("Transferencia", function() {
     var destino = new Cuenta(100);
 
     var resultadosTransferencias = [
-      new Transferencia(origen, destino, 30) /*,
-      new Transferencia(origen, destino, 40),
-      new Transferencia(origen, destino, 10),
-      new Transferencia(origen, destino, 50),
-      new Transferencia(destino, origen, 10),
-      new Transferencia(destino, origen, 20)*/
+      new Transferencia(destino, origen, 20),
+      new Transferencia(origen, destino, 110),
+      new Transferencia(origen, destino, 110),
+      new Transferencia(destino, origen, 200),
+      new Transferencia(destino, origen, 100),
+      new Transferencia(origen, destino, 80)
        ].map(function(it){
         return it.ejecutar();
       });
@@ -23,21 +24,19 @@ describe("Transferencia", function() {
     Promise
       .all(resultadosTransferencias)
       .then(function() {
-        console.log('tesing0')
-        return Promise.all([origen.saldo(), destino.saldo().tap(function(s){
-
-        console.log('tesing1' + s);
-        console.log('tesing1' + JSON.stringify(destino));
-
-        })])
+        return Promise.all([origen.saldo(), destino.saldo()])
       })
-      .tap(function(saldos) {
-        console.log('tesing' + JSON.stringify(origen));
-        console.log('tesing' + JSON.stringify(destino));
-        assert.deepEqual(saldos, [50, 150]);
+      .then(function(saldos) {
+        //assert.deepEqual(saldos, [10, 190]);
+        //assert.deepEqual(saldos, [120, 80]);
+        //assert.deepEqual(saldos, [40, 160]);
+        assert.deepEqual(_.sum(saldos), 200);
+
       })
-      .finally(function(){
+      .then(function(){
         done();
+      }).caught(function(e){
+        done(e)
       });
   })
 });

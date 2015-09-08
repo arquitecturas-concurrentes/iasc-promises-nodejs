@@ -1,8 +1,8 @@
 var Promise = require('bluebird');
 
 function randomDelay() {
-  //return Promise.delay(Math.random() * 500);
-  return Promise.resolve();
+  return Promise.delay(Math.random() * 500);
+  //return Promise.resolve();
 }
 
 function Cuenta(saldo) {
