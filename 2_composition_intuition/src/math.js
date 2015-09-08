@@ -2,22 +2,31 @@ function Promise(cont) {
   this.cont = cont;
 }
 
+
 Promise.prototype = {
-  then: function(f){
-    var self = this;
+  map: function(mapper) {
+    return this._derive(function(value, cont) {
+        cont(mapper(value));
+    });
+  },
+  flatMap: function(flatMapper) {
+    return this._derive(function(value, cont) {
+        var promise = flatMapper(value);
+        promise.onResolved(cont);
+    });
+  },
+  _derive: function(derived) {
+    var originalCont = this.cont;
     return new Promise(function(cont){
-      self.cont(function(v){
-        cont(f(v));
-      })
-    })
+      originalCont(function(value) {
+        derived(value, cont);
+      });
+    });
   },
   onResolved: function(f) {
     this.cont(f);
   }
 }
-
-
-
 
 function succ(x) {
   function succCPS(cont) {
