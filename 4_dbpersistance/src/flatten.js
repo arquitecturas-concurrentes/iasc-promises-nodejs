@@ -38,7 +38,7 @@ Flatten.prototype = {
                 }
 
                 if (!isarray && !isbuffer && isobject && Object.keys(value).length && currentDepth < maxDepth) {
-                    ++currentDepth
+                    ++currentDepth;
                     return step(value, newKey)
                 }
 

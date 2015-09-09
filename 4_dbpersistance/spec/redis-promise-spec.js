@@ -8,8 +8,18 @@ describe("Redis Connector", function() {
 
         client.persist('1', content);
         client.retrieve('1', function(result){
-            console.log('Recibi '+result);
             assert.equal(result, content);
+        });
+        done();
+    });
+
+    it("Persisto un objeto simple", function(done){
+        var obj = {"bleh" : 1};
+        var client = new redisConnector();
+
+        client.persist('1', obj);
+        client.retrieve('1', function(result) {
+           assert.deepEqual(result, obj);
         });
         done();
     });
