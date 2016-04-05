@@ -22,7 +22,6 @@ MyPromise.prototype = {
   }
 }
 
-
 function succ(x) {
   var deferred = new Deferred();
   deferred.resolve(x + 1);

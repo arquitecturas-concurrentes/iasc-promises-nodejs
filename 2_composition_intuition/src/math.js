@@ -2,19 +2,21 @@ function Promise(cont) {
   this.cont = cont;
 }
 
-
 Promise.prototype = {
+  
   map: function(mapper) {
     return this._derive(function(value, cont) {
         cont(mapper(value));
     });
   },
+
   flatMap: function(flatMapper) {
     return this._derive(function(value, cont) {
         var promise = flatMapper(value);
         promise.onResolved(cont);
     });
   },
+
   _derive: function(derived) {
     var originalCont = this.cont;
     return new Promise(function(cont){
@@ -23,6 +25,7 @@ Promise.prototype = {
       });
     });
   },
+
   onResolved: function(f) {
     this.cont(f);
   }

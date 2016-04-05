@@ -10,12 +10,14 @@ function Cuenta(saldo) {
 }
 
 Cuenta.prototype = {
+
   puedeExtraer: function(_saldo) {
     var self = this;
     return randomDelay().then(function() {
       return self._saldo >= _saldo;
     });
   },
+
   extraer: function(_monto) {
     var self = this;
     return randomDelay().then(function(){
@@ -29,12 +31,14 @@ Cuenta.prototype = {
       });
     })
   },
+
   depositar: function(_monto) {
     var self = this;
     return randomDelay().then(function() {
       self._saldo += _monto;
     });
   },
+  
   saldo: function () {
     var self = this;
     return randomDelay().then(function() {
