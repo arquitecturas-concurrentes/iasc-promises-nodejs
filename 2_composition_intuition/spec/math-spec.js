@@ -1,9 +1,9 @@
 var assert = require("assert");
 var math = require("../src/math.js");
 
-describe("promieses", function() {
+describe("promises", function() {
 
-  it("can implement functions", function(done){
+  it("can implement functions successfully", function(done){
     math
       .succ(1)
       .onResolved(function(value){
@@ -11,7 +11,6 @@ describe("promieses", function() {
         done();
       })
   })
-
 
   it("can be mapped", function(done){
     math
@@ -24,7 +23,6 @@ describe("promieses", function() {
         done();
       })
   })
-
 
   it("can be flatMapped", function(done){
     math
