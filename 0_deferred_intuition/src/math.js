@@ -1,24 +1,29 @@
-function Deferred() {}
+class Deferred {
 
-Deferred.prototype = {
-  resolve: function(value) {
-    this.resolvedValue = value;
-  },
-  promise: function() {
-    return new MyPromise(this.resolvedValue);
+  constructor() {
+    this.resolvedValue = undefined
+  }
+
+  resolve(value) {
+    this.resolvedValue = value
+  }
+
+  promise() {
+    return new MyPromise(this.resolvedValue)
   }
 }
 
-function MyPromise(resolvedValue) {
-  this._resolvedValue = resolvedValue;
-}
+class MyPromise {
+  constructor(resolvedValue) {
+    this._resolvedValue = resolvedValue
+  }
 
-MyPromise.prototype = {
-  resolvedValue: function() {
-    return this._resolvedValue;
-  },
-  isResolved: function(){
-    return true;
+  resolvedValue() {
+    return this._resolvedValue
+  }
+
+  isResolved() {
+    return true
   }
 }
 
