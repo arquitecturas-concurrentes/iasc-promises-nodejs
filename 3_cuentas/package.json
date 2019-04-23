@@ -9,6 +9,7 @@
     "bluebird": "~2.9.34"
   },
   "dependencies": {
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "babel-cli": "^6.26.0"
   }
 }

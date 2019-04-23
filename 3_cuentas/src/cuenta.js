@@ -5,46 +5,45 @@ function randomDelay() {
   //return Promise.resolve();
 }
 
-function Cuenta(saldo) {
-  this._saldo = saldo;
-}
+class Cuenta {
+  constructor(saldo) {
+    this._saldo = saldo
+  };
 
-Cuenta.prototype = {
-
-  puedeExtraer: function(_saldo) {
+  puedeExtraer(saldo) {
     var self = this;
     return randomDelay().then(function() {
-      return self._saldo >= _saldo;
+      return self._saldo >= saldo;
     });
-  },
+  };
 
-  extraer: function(_monto) {
+  extraer(monto) {
     var self = this;
     return randomDelay().then(function(){
       return new Promise(function(resolve, reject){
-        if(self._saldo < _monto) {
+        if(self._saldo < monto) {
           reject()
         } else {
-          self._saldo -= _monto;
+          self._saldo -= monto;
           resolve();
         }
       });
     })
-  },
+  };
 
-  depositar: function(_monto) {
+  depositar(monto) {
     var self = this;
     return randomDelay().then(function() {
-      self._saldo += _monto;
+      self._saldo += monto;
     });
-  },
+  };
   
-  saldo: function () {
+  saldo() {
     var self = this;
     return randomDelay().then(function() {
       return self._saldo;
     });
-  }
+  };
 }
 
 module.exports = Cuenta;
